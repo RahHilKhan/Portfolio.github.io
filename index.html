@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Rah Hil Khan Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===== GLOBAL ===== */
+html{scroll-behavior:smooth;}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:'Libre Caslon Text',serif;
+    color:black;
+    overflow-x:hidden;
+}
+
+/* ===== LOADING SCREEN ===== */
+#loader{
+    position:fixed;
+    inset:0;
+    background:#111;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    z-index:9999;
+    letter-spacing:3px;
+}
+
+/* ===== BACKGROUND ===== */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-2;
+
+    background:linear-gradient(
+        45deg,
+        #bfa98f,
+        #8f7f6a,
+        #9ca9b5,
+        #6e5f4d
+    );
+
+    background-size:400% 400%;
+    animation:gradient 120s ease infinite;
+}
+
+@keyframes gradient{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+/* ===== GLASS LUXURY ===== */
+.glass{
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(25px);
+    border-radius:30px;
+    border:1px solid rgba(212,175,55,0.35);
+    box-shadow:0 30px 80px rgba(0,0,0,0.25);
+}
+
+/* ===== HERO ===== */
+.hero-wrap{
+    display:flex;
+    justify-content:center;
+    padding:140px 20px 80px;
+    perspective:1000px;
+}
+
+.hero{
+    text-align:center;
+    padding:60px;
+    max-width:900px;
+    transition:.2s;
+}
+
+.profile{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid rgba(212,175,55,0.5);
+}
+
+h1{font-size:42px;margin-top:25px;}
+p{margin-top:18px;line-height:1.7;}
+
+/* ===== WORK GRID ===== */
+.work-title{
+    text-align:center;
+    font-size:30px;
+    margin:40px 0;
+}
+
+.work{
+    padding:80px 8%;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:40px;
+}
+
+/* ===== CARDS ===== */
+.card{
+    padding:15px;
+    transition:.4s;
+    opacity:0;
+    transform:translateY(40px);
+}
+
+.card.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.card:hover{
+    transform:translateY(-12px) scale(1.02);
+}
+
+.card video{
+    width:100%;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+/* ===== FOOTER ===== */
+.footer{
+    margin-top:100px;
+    padding:60px;
+    text-align:center;
+    border-radius:0;
+}
+
+/* ===== LIGHTBOX ===== */
+#lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+#lightbox video{
+    width:80%;
+    max-width:900px;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:900px){
+    .work{grid-template-columns:1fr;}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div id="loader">RHKG</div>
+
+<!-- HERO -->
+<div class="hero-wrap">
+<div class="hero glass" id="hero">
+
+<img src="YOUR_IMAGE_LINK" class="profile">
+
+<h1>Rah Hil Khan</h1>
+<p>
+Content Creator • AI Specialist • Video Editor<br><br>
+Cinematic storytelling for weddings, events,
+brands and AI-powered visuals worldwide.
+</p>
+
+</div>
+</div>
+
+<h2 class="work-title">Selected Work</h2>
+
+<section class="work">
+
+<div class="card glass"><video src="video1.mp4" muted loop></video></div>
+<div class="card glass"><video src="video2.mp4" muted loop></video></div>
+<div class="card glass"><video src="video3.mp4" muted loop></video></div>
+
+<div class="card glass"><video src="video4.mp4" muted loop></video></div>
+<div class="card glass"><video src="video5.mp4" muted loop></video></div>
+<div class="card glass"><video src="video6.mp4" muted loop></video></div>
+
+<div class="card glass"><video src="video7.mp4" muted loop></video></div>
+<div class="card glass"><video src="video8.mp4" muted loop></video></div>
+<div class="card glass"><video src="video9.mp4" muted loop></video></div>
+
+</section>
+
+<footer class="footer glass">
+<b>Contact</b><br><br>
+Email : professionalrhk@gmail.com<br>
+Instagram : @edit.rhk
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+<video controls autoplay></video>
+</div>
+
+<script>
+
+/* ===== LOADER ===== */
+window.onload=()=>setTimeout(()=>{
+    document.getElementById("loader").style.display="none";
+},1200);
+
+/* ===== SCROLL REVEAL ===== */
+const cards=document.querySelectorAll(".card");
+const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+        if(e.isIntersecting)e.target.classList.add("show");
+    });
+},{threshold:.2});
+
+cards.forEach(c=>observer.observe(c));
+
+/* ===== PARALLAX HERO ===== */
+document.addEventListener("mousemove",e=>{
+    const hero=document.getElementById("hero");
+    let x=(window.innerWidth/2-e.pageX)/40;
+    let y=(window.innerHeight/2-e.pageY)/40;
+    hero.style.transform=`rotateY(${x}deg) rotateX(${y}deg)`;
+});
+
+/* ===== HOVER AUTOPLAY ===== */
+document.querySelectorAll(".card video").forEach(v=>{
+    v.addEventListener("mouseenter",()=>v.play());
+    v.addEventListener("mouseleave",()=>v.pause());
+});
+
+/* ===== LIGHTBOX ===== */
+const lightbox=document.getElementById("lightbox");
+const lbVideo=lightbox.querySelector("video");
+
+document.querySelectorAll(".card video").forEach(v=>{
+    v.onclick=()=>{
+        lbVideo.src=v.src;
+        lightbox.style.display="flex";
+    };
+});
+
+lightbox.onclick=()=>{
+    lightbox.style.display="none";
+    lbVideo.pause();
+};
+
+</script>
+
+</body>
+</html>
